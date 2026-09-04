@@ -14,12 +14,11 @@ import {
   RefreshCw 
 } from 'lucide-react';
 function App() {
-  const {sensorData,time} = MqttConnection();
+  const {cameraUrl,sensorData,time} = MqttConnection();
   const [isStreamActive, setIsStreamActive] = useState(true);
   const [isRecording, setIsRecording] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const peerConnectionRef = useRef<RTCPeerConnection | null>(null);
-  const cameraUrl = import.meta.env.VITE_CAMERA_URL;
   async function Api() {
   try {
     const pc = new RTCPeerConnection();
@@ -73,7 +72,7 @@ function App() {
 }
   function disableCamera() {
     const pc = peerConnectionRef.current;
-
+    console.log(cameraUrl);
     if (pc) {
       pc.getSenders().forEach((sender) => {
         if (sender.track) {
@@ -297,7 +296,7 @@ function App() {
             </p>
 
             <p className="text-sm font-mono text-slate-200 mt-1">
-              {sensorData?.last_motion ?? "No motion detected yet"}
+              {time ?? "No motion detected yet"}
             </p>
           </div>
 

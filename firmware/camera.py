@@ -10,7 +10,7 @@ import aiohttp_cors
 import av
 from fractions import Fraction
 from picamera2 import Picamera2
-
+from libcamera import Transform
 from aiohttp import web
 from aiortc import (
     RTCPeerConnection,
@@ -24,9 +24,9 @@ ROOT = os.path.dirname(__file__)
 pcs = {}
 
 cam = Picamera2()
-
 video_config = cam.create_video_configuration(
-    main={"format": "RGB888"}
+    main={"format": "RGB888"},
+    transform=Transform(hflip=1)
 )
 
 cam.configure(video_config)
@@ -246,7 +246,7 @@ if __name__ == "__main__":
     cors = aiohttp_cors.setup(
         app,
         defaults={
-            "url": aiohttp_cors.ResourceOptions(
+            "http://localhost:5173": aiohttp_cors.ResourceOptions(
                 allow_credentials=True,
                 allow_headers="*",
                 allow_methods=["POST", "OPTIONS"],

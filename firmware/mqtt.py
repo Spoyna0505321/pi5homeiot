@@ -2,10 +2,10 @@ import paho.mqtt.client as mqtt
 import paho.mqtt.subscribe as subscribe
 import time
 import json
-MQTT_BROKER = ""
-MQTT_PORT = ""
-MQTT_USERNAME = ""
-MQTT_PASSWORD = ""
+MQTT_BROKER = "a6f4efce03704070baff8dabee217e23.s1.eu.hivemq.cloud"
+MQTT_PORT = 8883
+MQTT_USERNAME = "KAANS-HOME-Pİ5"
+MQTT_PASSWORD = "0XQvuGLm"
 class MqttConnection:
     def __init__(self):
         self.username = MQTT_USERNAME
@@ -25,8 +25,8 @@ class MqttConnection:
             print("MQTT connection failed:", reason_code)
         else:
             print("MQTT connected")
-    def publish(self,topic,message):
-        self.client.publish(topic, message, qos=1)
+    def publish(self,topic,message,retain=False):
+        self.client.publish(topic, message, qos=1,retain=retain)
     def subscribe(self,topic):
         self.client.subscribe(topic)
     def on_message(self, client, userdata, message):

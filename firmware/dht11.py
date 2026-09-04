@@ -17,6 +17,7 @@ class DHT11:
         except Exception as error:
             self.dhtDevice.exit()
             raise error
-        finally:
-            self.dhtDevice.exit()
         return json.dumps({"temperature":self.temperature,"humidity":self.humidity})
+    def close(self):
+         self.dhtDevice.exit()
+
